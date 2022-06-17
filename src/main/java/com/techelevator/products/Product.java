@@ -1,11 +1,13 @@
 package com.techelevator.products;
 
+import java.math.BigDecimal;
+
 public abstract class Product {                         // Abstract class will be implemented by the child classes
     private String name;
-    private double price;
+    private BigDecimal price;
     private int stock = 5;                              // Each item is restocked to 5 on start
 
-    public Product(String name, double price) {         // Product constructor
+    public Product(String name, BigDecimal price) {         // Product constructor
         this.name = name;
         this.price = price;
     }
@@ -13,7 +15,7 @@ public abstract class Product {                         // Abstract class will b
     public String getName() {
         return name;
     }            // Product getters
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
     public int getStock() {
@@ -25,8 +27,7 @@ public abstract class Product {                         // Abstract class will b
     }
 
     public void purchaseItem() {
-        stock--;
-    }             // When an item is purchased, reduce stock by 1
+        if (getStock() > 0) { stock--; }  }             // When an item is purchased, reduce stock by 1
 
     public abstract String getMessage();                // Abstract method will be defined by each specific class
 }

@@ -26,23 +26,22 @@ public class VendingMachineCLI {
 
 	public void run()  throws FileNotFoundException {
 		VendingMachine vendomatic = new VendingMachine();
-		Map<String, Product> productMap = vendomatic.createInventory(vendomatic.getInputFile());
+//		Map<String, Product> productMap = vendomatic.createInventory(vendomatic.getInputFile());
 
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				vendomatic.displayProducts(productMap);
+				vendomatic.displayProducts(vendomatic.getInventoryMap());
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				while (true) {
 					choice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 					if (choice.equals(PURCHASE_MENU_FEED_MONEY)) {
 						vendomatic.feedMoney();
-						System.out.println("Current Money Provided: $" + vendomatic.getBalance());
 					} else if (choice.equals(PURCHASE_MENU_SELECT)) {
-						vendomatic.selectProduct(productMap);
+						vendomatic.selectProduct(vendomatic.getInventoryMap());
 					} else if (choice.equals(PURCHASE_MENU_FINISH)) {
-						//gib back moneys vendomatic.returnMoney();
+						vendomatic.refundBalance();
 						break;
 					}
 				}

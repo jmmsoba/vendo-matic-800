@@ -1,10 +1,12 @@
 package com.techelevator.products;
 
+import java.math.BigDecimal;
+
 public class Drink  extends Product {
 
-    public Drink(String name, double price) {
+    public Drink(String name, BigDecimal price) {
         super(name, price);
-    }   // Drink constructor using the Product constructor
+    }                                                                 // Drink constructor using the Product constructor
 
     @Override
     public String getMessage() {
