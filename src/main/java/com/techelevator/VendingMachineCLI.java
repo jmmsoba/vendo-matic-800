@@ -1,12 +1,17 @@
 package com.techelevator;
 
+import com.techelevator.products.Product;
 import com.techelevator.view.Menu;
+
+import java.io.FileNotFoundException;
+import java.util.Map;
 
 public class VendingMachineCLI {
 
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
-	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE };
+	private static final String MAIN_MENU_OPTION_EXIT = "Exit";
+	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT };
 
 	private static final String PURCHASE_MENU_FEED_MONEY = "Feed Money";			// Purchase menu options
 	private static final String PURCHASE_MENU_SELECT = "Select Product";			// Purchase menu options
@@ -19,19 +24,35 @@ public class VendingMachineCLI {
 		this.menu = menu;
 	}
 
-	public void run() {
+	public void run()  throws FileNotFoundException {
+		VendingMachine vendomatic = new VendingMachine();
+		Map<String, Product> productMap = vendomatic.createInventory(vendomatic.getInputFile());
+
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				// STEP FIVE:  display vending machine items
+				vendomatic.displayProducts(productMap);
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				// STEP SIX AND SEVEN:  do purchase
+				while (true) {
+					choice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+					if (choice.equals(PURCHASE_MENU_FEED_MONEY)) {
+						vendomatic.feedMoney();
+						System.out.println("Current Money Provided: $" + vendomatic.getBalance());
+					} else if (choice.equals(PURCHASE_MENU_SELECT)) {
+						vendomatic.selectProduct(productMap);
+					} else if (choice.equals(PURCHASE_MENU_FINISH)) {
+						//gib back moneys vendomatic.returnMoney();
+						break;
+					}
+				}
+			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
+				System.exit(1); // exit
 			}
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)  throws FileNotFoundException {
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
