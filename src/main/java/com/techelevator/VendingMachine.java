@@ -93,7 +93,7 @@ public class VendingMachine {
     public void selectProduct(Map<String, Product> map) {
         displayProducts(map);
         System.out.println("Please enter a product code: ");
-        String value = input.nextLine();
+        String value = input.nextLine().toUpperCase();
         if (map.containsKey(value)) {
             if (map.get(value).getStock() == 0) {
                 System.out.println(map.get(value).getName() + " is sold out.");
