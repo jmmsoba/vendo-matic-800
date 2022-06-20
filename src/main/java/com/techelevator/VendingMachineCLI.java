@@ -11,12 +11,15 @@ public class VendingMachineCLI {
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
 	private static final String MAIN_MENU_OPTION_EXIT = "Exit";
-	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT };
+	private static final String HIDDEN_OPTION_SALES_REPORT = "";
+	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE,
+			MAIN_MENU_OPTION_EXIT, HIDDEN_OPTION_SALES_REPORT };
 
 	private static final String PURCHASE_MENU_FEED_MONEY = "Feed Money";			// Purchase menu options
 	private static final String PURCHASE_MENU_SELECT = "Select Product";			// Purchase menu options
 	private static final String PURCHASE_MENU_FINISH = "Finish Transaction";		// Purchase menu options
-	private static final String[] PURCHASE_MENU_OPTIONS = {PURCHASE_MENU_FEED_MONEY, PURCHASE_MENU_SELECT, PURCHASE_MENU_FINISH};
+	private static final String[] PURCHASE_MENU_OPTIONS = {PURCHASE_MENU_FEED_MONEY, PURCHASE_MENU_SELECT,
+			PURCHASE_MENU_FINISH};
 
 	private Menu menu;
 
@@ -47,6 +50,8 @@ public class VendingMachineCLI {
 				}
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
 				System.exit(1); // exit
+			} else if (choice.equals(HIDDEN_OPTION_SALES_REPORT)) {
+				System.out.println("Coming soon!");
 			}
 		}
 	}

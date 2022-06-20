@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import com.techelevator.products.*;
+import com.techelevator.view.VMLog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,11 +11,11 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class VendingMachine {
-    private BigDecimal balance = new BigDecimal(0.00);                                                             // balance variable to keep track of funds (will use later)
+    private static BigDecimal balance = new BigDecimal("0.00");                                                             // balance variable to keep track of funds (will use later)
     Scanner input = new Scanner(System.in);
     private Map<String, Product> inventoryMap = new LinkedHashMap<>();
 
-    public BigDecimal getBalance() {
+    public static BigDecimal getBalance() {
         return balance;
     }
     public Map<String, Product> getInventoryMap() { return inventoryMap; }
@@ -79,24 +80,33 @@ public class VendingMachine {
     }
 
     public BigDecimal feedMoney(InputStream in, PrintStream out) {
+        BigDecimal startBalance = getBalance();
         input = new Scanner(in);
+
         System.out.println("Please insert cash in whole dollar amounts:");
         String value = input.nextLine();
+
         while (!value.matches("^\\d*$") || value.isEmpty()) {
             System.out.println("Invalid input.\nPlease insert cash in whole dollar amounts:");
             value = input.nextLine();
         }
+
         int intMoney = Integer.parseInt(value);
         BigDecimal money = new BigDecimal(intMoney);
         balance = balance.add(money);
         System.out.println("Current Money Provided: $" + getBalance());
+
+        VMLog.log("FEED MONEY", money, getBalance());
         return balance;
     }
 
     public void selectProduct(Map<String, Product> map) {
+        BigDecimal startBalance = getBalance();
         displayProducts(map);
+
         System.out.println("Please enter a product code: ");
         String value = input.nextLine().toUpperCase();
+
         if (map.containsKey(value)) {
             if (map.get(value).getStock() == 0) {
                 System.out.println(map.get(value).getName() + " is sold out.");
@@ -110,19 +120,25 @@ public class VendingMachine {
                 balance = balance.subtract(map.get(value).getPrice());
                 System.out.println(map.get(value).getName() + "  $" + map.get(value).getPrice() + "  Remaining balance: $" + getBalance());
                 map.get(value).getMessage();
+
+                //totalSales = totalSales.add(map.get(value).getPrice();
+                VMLog.log(map.get(value).getName() + " " + value, startBalance, getBalance());
             }
         }
+
         else System.out.println("Invalid input. Returning to Purchase menu.");
     }
 
     public void refundBalance() {
-        final BigDecimal QUARTER = new BigDecimal(0.25);
-        final BigDecimal DIME = new BigDecimal(0.10);
-        final BigDecimal NICKEL = new BigDecimal(0.05);
+        final BigDecimal QUARTER = new BigDecimal("0.25");
+        final BigDecimal DIME = new BigDecimal("0.10");
+        final BigDecimal NICKEL = new BigDecimal("0.05");
 
         int quarterCounter = 0;
         int dimeCounter = 0;
         int nickelCounter = 0;
+
+        BigDecimal startBalance = getBalance();
 
         while (balance.doubleValue() >= QUARTER.doubleValue()) {
             balance = balance.subtract(QUARTER);
@@ -138,6 +154,7 @@ public class VendingMachine {
         }
 
         System.out.println("Change due: " + quarterCounter + " quarters, " + dimeCounter + " dimes, and " + nickelCounter + " nickels.");
+        VMLog.log("GIVE CHANGE", startBalance, getBalance());
     }
 
 //    public static void main(String[] args)   throws FileNotFoundException {
