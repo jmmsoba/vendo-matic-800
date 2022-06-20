@@ -4,6 +4,8 @@ import com.techelevator.products.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -76,7 +78,8 @@ public class VendingMachine {
         }
     }
 
-    public BigDecimal feedMoney() {
+    public BigDecimal feedMoney(InputStream in, PrintStream out) {
+        input = new Scanner(in);
         System.out.println("Please insert cash in whole dollar amounts:");
         String value = input.nextLine();
         while (!value.matches("^\\d*$") || value.isEmpty()) {

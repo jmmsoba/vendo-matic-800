@@ -71,16 +71,16 @@ public class VendingMachineTest {
 
     }
 
-//    @Test
-//    public void feed_Money_Test() throws FileNotFoundException {
-//        VendingMachine vendingMachineTest = new VendingMachine();
-//
-//        InputStream sysInBackup = System.in; // backup System.in to restore it later
-//        ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
-//        BigDecimal actual = vendingMachineTest.feedMoney();
-//        System.setIn(in);
-//
-//        BigDecimal expectedInputValue = new BigDecimal("1");
-//        assertEquals(expectedInputValue,actual);
-//    }
+    @Test
+    public void feed_Money_Test() throws FileNotFoundException {
+        VendingMachine vendingMachineTest = new VendingMachine();
+
+        InputStream sysInBackup = System.in; // backup System.in to restore it later
+        ByteArrayInputStream in = new ByteArrayInputStream("10".getBytes());
+        BigDecimal actual = vendingMachineTest.feedMoney(in, System.out);
+        System.setIn(in);
+
+        BigDecimal expectedInputValue = new BigDecimal("10");
+        assertEquals(expectedInputValue,actual);
+    }
 }

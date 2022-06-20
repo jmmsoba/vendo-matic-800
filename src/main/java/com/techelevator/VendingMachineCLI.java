@@ -37,7 +37,7 @@ public class VendingMachineCLI {
 				while (true) {
 					choice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 					if (choice.equals(PURCHASE_MENU_FEED_MONEY)) {
-						vendomatic.feedMoney();
+						vendomatic.feedMoney(System.in, System.out);
 					} else if (choice.equals(PURCHASE_MENU_SELECT)) {
 						vendomatic.selectProduct(vendomatic.getInventoryMap());
 					} else if (choice.equals(PURCHASE_MENU_FINISH)) {
