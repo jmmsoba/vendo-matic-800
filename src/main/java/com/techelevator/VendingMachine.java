@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class VendingMachine {
-    private static BigDecimal balance = new BigDecimal("0.00");                                                             // balance variable to keep track of funds (will use later)
+    private static BigDecimal balance = new BigDecimal(0.00);                                                             // balance variable to keep track of funds (will use later)
     Scanner input = new Scanner(System.in);
     private Map<String, Product> inventoryMap = new LinkedHashMap<>();
 
@@ -80,7 +80,7 @@ public class VendingMachine {
     }
 
     public BigDecimal feedMoney(InputStream in, PrintStream out) {
-        BigDecimal startBalance = getBalance();
+        //BigDecimal startBalance = getBalance();
         input = new Scanner(in);
 
         System.out.println("Please insert cash in whole dollar amounts:");
@@ -130,9 +130,9 @@ public class VendingMachine {
     }
 
     public void refundBalance() {
-        final BigDecimal QUARTER = new BigDecimal("0.25");
-        final BigDecimal DIME = new BigDecimal("0.10");
-        final BigDecimal NICKEL = new BigDecimal("0.05");
+        final BigDecimal QUARTER = new BigDecimal(0.25);
+        final BigDecimal DIME = new BigDecimal(0.10);
+        final BigDecimal NICKEL = new BigDecimal(0.05);
 
         int quarterCounter = 0;
         int dimeCounter = 0;

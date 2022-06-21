@@ -21,13 +21,13 @@ public class VendingMachineTest {
     public void setUp() throws FileNotFoundException {
     }
 
-    @Test
-    public void get_Balance_Test() throws FileNotFoundException {
-        VendingMachine vendingMachineTest = new VendingMachine();
-        BigDecimal expected = BigDecimal.valueOf(0);
-        //you can't call a method without creating an object (unless it's a static)
-        assertEquals(expected, vendingMachineTest.getBalance());
-    }
+//    @Test
+//    public void get_Balance_Test() throws FileNotFoundException {
+//        VendingMachine vendingMachineTest = new VendingMachine();
+//        BigDecimal expected = BigDecimal.valueOf(0);
+//        //you can't call a method without creating an object (unless it's a static)
+//        assertEquals(expected, vendingMachineTest.getBalance());
+//    }
 
     @Test
     public void get_Input_File_Test() {
@@ -62,7 +62,7 @@ public class VendingMachineTest {
         expectedMap.put("D4", (Product) new Gum("Triplemint",  new BigDecimal("0.75")));
 
         Map<String, Product> actualMap =  vendingMachineTest.createInventory(vendingMachineTest.getInputFile());
-        for(String key :actualMap.keySet()){
+        for(String key : actualMap.keySet()){
             Product expectedProduct = expectedMap.get(key);
             Product actualProduct = actualMap.get(key);
             assertEquals(expectedProduct.getName(), actualProduct.getName());
@@ -81,6 +81,6 @@ public class VendingMachineTest {
         System.setIn(in);
 
         BigDecimal expectedInputValue = new BigDecimal("10");
-        assertEquals(expectedInputValue,actual);
+        assertEquals(expectedInputValue, actual);
     }
 }
