@@ -51,9 +51,9 @@ public class Menu {
 				out.println(optionNum + ") " + options[i]);
 			}
 		}
-		if (options.length == 3) {
-			out.println(System.lineSeparator() + "Current Money Provided: $" + VendingMachine.getBalance());
-		}
+//		if (options.length == 3) {
+//			out.println(System.lineSeparator() + "Current Money Provided: $" + VendingMachine.getBalance());
+//		}
 		out.print(System.lineSeparator() + "Please choose an option >>> ");
 		out.flush();
 	}

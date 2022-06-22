@@ -27,7 +27,7 @@ public class VMLog {
                 }
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Unable to create log file.");
         }
     }
 }

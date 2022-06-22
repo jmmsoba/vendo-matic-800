@@ -15,10 +15,7 @@ public class VendingMachine {
     Scanner input = new Scanner(System.in);
     private Map<String, Product> inventoryMap = new LinkedHashMap<>();
 
-    public static BigDecimal getBalance() {
-        return balance;
-    }
-    public Map<String, Product> getInventoryMap() { return inventoryMap; }
+
 
     public VendingMachine()  throws FileNotFoundException {
         this.inventoryMap = createInventory(getInputFile());
@@ -80,14 +77,13 @@ public class VendingMachine {
     }
 
     public BigDecimal feedMoney(InputStream in, PrintStream out) {
-        //BigDecimal startBalance = getBalance();
         input = new Scanner(in);
 
-        System.out.println("Please insert cash in whole dollar amounts:");
+        out.println("Please insert cash in whole dollar amounts:");
         String value = input.nextLine();
 
         while (!value.matches("^\\d*$") || value.isEmpty()) {
-            System.out.println("Invalid input.\nPlease insert cash in whole dollar amounts:");
+            out.println("Invalid input.\nPlease insert cash in whole dollar amounts:");
             value = input.nextLine();
         }
 
@@ -105,24 +101,24 @@ public class VendingMachine {
         displayProducts(map);
 
         System.out.println("Please enter a product code: ");
-        String value = input.nextLine().toUpperCase();
+        String key = input.nextLine().toUpperCase();
 
-        if (map.containsKey(value)) {
-            if (map.get(value).getStock() == 0) {
-                System.out.println(map.get(value).getName() + " is sold out.");
+        if (map.containsKey(key)) {
+            if (map.get(key).getStock() == 0) {
+                System.out.println(map.get(key).getName() + " is sold out.");
             }
-            else if (map.get(value).getPrice().doubleValue() > balance.doubleValue()) {
+            else if (map.get(key).getPrice().doubleValue() > balance.doubleValue()) {
                 System.out.println("Insufficient funds.");
             }
             else {
-                map.get(value).purchaseItem();
+                map.get(key).purchaseItem();
 //                System.out.println("remaining stock: " + map.get(value).getStock());
-                balance = balance.subtract(map.get(value).getPrice());
-                System.out.println(map.get(value).getName() + "  $" + map.get(value).getPrice() + "  Remaining balance: $" + getBalance());
-                map.get(value).getMessage();
+                balance = balance.subtract(map.get(key).getPrice());
+                System.out.println(map.get(key).getName() + "  $" + map.get(key).getPrice() + "  Remaining balance: $" + getBalance());
+                map.get(key).getMessage();
 
                 //totalSales = totalSales.add(map.get(value).getPrice();
-                VMLog.log(map.get(value).getName() + " " + value, startBalance, getBalance());
+                VMLog.log(map.get(key).getName() + " " + key, startBalance, getBalance());
             }
         }
 
@@ -138,7 +134,7 @@ public class VendingMachine {
         int dimeCounter = 0;
         int nickelCounter = 0;
 
-        BigDecimal startBalance = getBalance();
+        BigDecimal startBalance = getBalance();   //stores balance before method runs for vmlog
 
         while (balance.doubleValue() >= QUARTER.doubleValue()) {
             balance = balance.subtract(QUARTER);
@@ -156,7 +152,10 @@ public class VendingMachine {
         System.out.println("Change due: " + quarterCounter + " quarters, " + dimeCounter + " dimes, and " + nickelCounter + " nickels.");
         VMLog.log("GIVE CHANGE", startBalance, getBalance());
     }
-
+    public static BigDecimal getBalance() {
+        return balance;
+    }
+    public Map<String, Product> getInventoryMap() { return inventoryMap; }
 //    public static void main(String[] args)   throws FileNotFoundException {
 //        VendingMachine vend = new VendingMachine();
 //        File input = vend.getInputFile();
